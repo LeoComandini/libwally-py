@@ -110,6 +110,5 @@ class Xprv(Xpub):
         return PrivateKey(wally.bip32_key_get_priv_key(self.extkey))
 
     def to_xpub(self) -> Xpub:
-        # TODO: use bip32_key_strip_private_key
         xpub_bytes = wally.bip32_key_serialize(self.extkey, wally.BIP32_FLAG_KEY_PUBLIC)
         return Xpub.from_bytes(xpub_bytes)
