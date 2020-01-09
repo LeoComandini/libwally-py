@@ -34,20 +34,11 @@ def scriptpubkey_to_address(scriptpubkey: bytes) -> str:
 
 def address_to_scriptpubkey(address: str) -> bytes:
     try:
-        # flags = {
-        #     'mainnet': wally.WALLY_NETWORK_BITCOIN_MAINNET,
-        #     'testnet': wally.WALLY_NETWORK_BITCOIN_TESTNET,
-        # }[pywally.params.NAME]
-        # return wally.address_to_scriptpubkey(address, flags)
-        decoded = wally.base58check_to_bytes(address)
-        if len(decoded) != 21:
-            raise InvalidAddress('Unexpected length')
-        if decoded[0] == pywally.params.P2PKH_PREFIX:
-            return wally.scriptpubkey_p2pkh_from_bytes(decoded[1:21], 0)
-        elif decoded[0] == pywally.params.P2SH_PREFIX:
-            return wally.scriptpubkey_p2sh_from_bytes(decoded[1:21], 0)
-        else:
-            raise InvalidAddress('Unexpected prefix')
+        network = {
+            'mainnet': wally.WALLY_NETWORK_BITCOIN_MAINNET,
+            'testnet': wally.WALLY_NETWORK_BITCOIN_TESTNET,
+        }[pywally.params.NAME]
+        return wally.address_to_scriptpubkey(address, network)
     except ValueError:
         pass
 
