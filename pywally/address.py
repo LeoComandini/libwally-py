@@ -15,6 +15,13 @@ class InvalidAddress(AddressError):
     pass
 
 
+NETWORKS = {
+    'mainnet': wally.WALLY_NETWORK_BITCOIN_MAINNET,
+    'testnet': wally.WALLY_NETWORK_BITCOIN_TESTNET,
+    'regtest': wally.WALLY_NETWORK_BITCOIN_TESTNET,
+}
+
+
 def scriptpubkey_to_address(scriptpubkey: bytes) -> str:
     type_ = wally.scriptpubkey_get_type(scriptpubkey)
     if type_ == wally.WALLY_SCRIPT_TYPE_P2PKH:
@@ -34,10 +41,7 @@ def scriptpubkey_to_address(scriptpubkey: bytes) -> str:
 
 def address_to_scriptpubkey(address: str) -> bytes:
     try:
-        network = {
-            'mainnet': wally.WALLY_NETWORK_BITCOIN_MAINNET,
-            'testnet': wally.WALLY_NETWORK_BITCOIN_TESTNET,
-        }[pywally.params.NAME]
+        network = NETWORKS[pywally.params.NAME]
         return wally.address_to_scriptpubkey(address, network)
     except ValueError:
         pass
