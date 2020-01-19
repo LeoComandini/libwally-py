@@ -24,16 +24,10 @@ NETWORKS = {
 
 def scriptpubkey_to_address(scriptpubkey: bytes) -> str:
     type_ = wally.scriptpubkey_get_type(scriptpubkey)
-    if type_ == wally.WALLY_SCRIPT_TYPE_P2PKH:
-        pubkeyhash = scriptpubkey[3:23]
-        prefix = bytearray([pywally.params.P2PKH_PREFIX])
-        return wally.base58check_from_bytes(prefix + pubkeyhash)
-    elif type_ == wally.WALLY_SCRIPT_TYPE_P2SH:
-        scripthash = scriptpubkey[2:22]
-        prefix = bytearray([pywally.params.P2SH_PREFIX])
-        return wally.base58check_from_bytes(prefix + scripthash)
-    elif type_ == wally.WALLY_SCRIPT_TYPE_P2WPKH or \
-            type_ == wally.WALLY_SCRIPT_TYPE_P2WSH:
+    if type_ == wally.WALLY_SCRIPT_TYPE_P2PKH or type_ == wally.WALLY_SCRIPT_TYPE_P2SH:
+        network = NETWORKS[pywally.params.NAME]
+        return wally.scriptpubkey_to_address(scriptpubkey, network)
+    elif type_ == wally.WALLY_SCRIPT_TYPE_P2WPKH or type_ == wally.WALLY_SCRIPT_TYPE_P2WSH:
         return wally.addr_segwit_from_bytes(scriptpubkey, pywally.params.BECH32_HRP, 0)
     else:
         raise UnknownAddressForScriptpubkey
