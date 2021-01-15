@@ -1,7 +1,8 @@
 from setuptools import setup, find_packages
+from distutils.util import convert_path
 
-from pywally import __version__
-
+with open(convert_path('pywally/version.py')) as f:
+    exec(f.read())
 
 setup(
     name='pywally',

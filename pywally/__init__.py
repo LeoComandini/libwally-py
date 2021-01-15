@@ -1,9 +1,6 @@
 import wallycore as wally
 
 
-__version__ = '0.0.1dev'
-
-
 class MainParams(object):
     NAME = 'mainnet'
 
