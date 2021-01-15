@@ -18,15 +18,7 @@ Create and activate a virtualenv (optional):
     virtualenv -p python3 venv
     source venv/bin/activate
 
-Install libwally-core from the
-[relased](https://github.com/ElementsProject/libwally-core/releases) wheels:
-
-    pip install -r tools/requirements.txt
-
-Or install from source, following
-[these instructions](https://github.com/ElementsProject/libwally-core#python).
-
-Then install libwally-py:
+Install libwally-py:
 
     pip install .
 

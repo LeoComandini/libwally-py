@@ -11,7 +11,7 @@ setup(
     python_requires='>=3.6.0',
     url='https://github.com/LeoComandini/libwally-py',
     packages=find_packages(exclude=['tests']),
-    install_requires=['wallycore>=0.7.7'],
+    install_requires=['wallycore>=0.8.1'],
     classifiers=[
         'Development Status :: 1 - Planning',
         'License :: OSI Approved :: MIT License',
