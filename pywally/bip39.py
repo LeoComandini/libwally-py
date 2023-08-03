@@ -29,9 +29,7 @@ def mnemonic_to_entropy(mnemonic: str) -> bytes:
 
     try:
         wally.bip39_mnemonic_validate(None, mnemonic)
-        buf = bytearray([0] * 40)
-        written = wally.bip39_mnemonic_to_bytes(None, mnemonic, buf)
-        return buf[:written]
+        return wally.bip39_mnemonic_to_bytes(None, mnemonic)
     except ValueError:
         raise InvalidMnemonic
 
@@ -41,7 +39,7 @@ def mnemonic_to_seed(mnemonic: str, passphrase: str = None) -> bytes:
 
     try:
         wally.bip39_mnemonic_validate(None, mnemonic)
-        _, seed = wally.bip39_mnemonic_to_seed512(mnemonic, passphrase)
+        seed = wally.bip39_mnemonic_to_seed512(mnemonic, passphrase)
         return seed
     except ValueError:
         raise InvalidMnemonic
